@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   AppProvider as PolarisAppProvider,
@@ -9,16 +10,14 @@ import {
   Text,
   TextField,
 } from "@shopify/polaris";
-
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
-import polarisStyles from "@shopify/polaris/build/esm/styles.css";
-
 import { login } from "../../shopify.server";
 import { loginErrorMessage } from "./error.server";
+import polarisStyles from "@shopify/polaris/build/esm/styles.css";
 
 export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
-export async function loader({ request }) {
+export async function loader({ request }: LoaderArgs) {
   const errors = loginErrorMessage(await login(request));
 
   return json({
@@ -27,7 +26,7 @@ export async function loader({ request }) {
   });
 }
 
-export async function action({ request }) {
+export async function action({ request }: ActionArgs) {
   const errors = loginErrorMessage(await login(request));
 
   return json({

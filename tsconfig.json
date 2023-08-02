@@ -1,5 +1,22 @@
 {
-  "include": ["**/*.js", "**/*.jsx"],
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "app/root.tsx",
+    "app/shopify.server.ts",
+    "app/db.server.ts",
+    "app/entry.server.tsx",
+    "app/routes/app._index.tsx",
+    "app/routes/auth.login/error.server.tsx",
+    "app/routes/_index/route.tsx",
+    "app/routes/app.additional.tsx",
+    "app/routes/webhooks.tsx",
+    "app/routes/auth.$.tsx",
+    "app/routes/app.tsx",
+    "app/routes/auth.login/route.tsx"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
@@ -11,15 +28,13 @@
     "strict": true,
     "allowJs": true,
     "checkJs": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]
     },
-    "types": [
-      "@shopify/app-bridge-types"
-    ],
+    "types": ["@shopify/app-bridge-types"],
     "noEmit": true
   }
 }

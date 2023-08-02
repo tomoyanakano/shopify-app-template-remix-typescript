@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   useActionData,
@@ -22,13 +23,13 @@ import {
 
 import { authenticate } from "../shopify.server";
 
-export const loader = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const { session } = await authenticate.admin(request);
 
   return json({ shop: session.shop.replace(".myshopify.com", "") });
 };
 
-export async function action({ request }) {
+export async function action({ request }: ActionArgs) {
   const { admin } = await authenticate.admin(request);
 
   const color = ["Red", "Orange", "Yellow", "Green"][

@@ -1,15 +1,15 @@
-import React from "react";
 import { json } from "@remix-run/node";
+import type { HeadersArgs, LoaderArgs } from "@remix-run/node";
 import { Link, Outlet, useLoaderData, useRouteError } from "@remix-run/react";
 import { AppProvider as PolarisAppProvider } from "@shopify/polaris";
-import polarisStyles from "@shopify/polaris/build/esm/styles.css";
 import { boundary } from "@shopify/shopify-app-remix";
-
 import { authenticate } from "../shopify.server";
+import { forwardRef } from "react";
+import polarisStyles from "@shopify/polaris/build/esm/styles.css";
 
 export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
-export async function loader({ request }) {
+export async function loader({ request }: LoaderArgs) {
   await authenticate.admin(request);
 
   return json({
@@ -44,8 +44,8 @@ export default function App() {
 }
 
 /** @type {any} */
-const RemixPolarisLink = React.forwardRef((/** @type {any} */ props, ref) => (
-  <Link {...props} to={props.url ?? props.to} ref={ref}>
+const RemixPolarisLink: any = forwardRef((props: any, ref) => (
+  <Link {...props} to={props.url ?? props.to!} ref={ref}>
     {props.children}
   </Link>
 ));
@@ -55,6 +55,6 @@ export function ErrorBoundary() {
   return boundary.error(useRouteError());
 }
 
-export const headers = (headersArgs) => {
+export const headers = (headersArgs: HeadersArgs) => {
   return boundary.headers(headersArgs);
 };
